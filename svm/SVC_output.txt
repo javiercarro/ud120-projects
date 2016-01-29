@@ -1,0 +1,33 @@
+Training time (SVC linear all samples): 179.656s
+Predict time (SVC linear all samples): 501.688s
+Accuracy (SVC linear all samples): 98.4072810011%
+Training time (SVC linear 1% samples): 0.11s
+Predict time (SVC linear 1% samples): 1.227s
+Accuracy (SVC linear 1% samples): 88.4527872582%
+Training time (SVC RBF 1% samples): 0.119s
+Predict time (SVC RBF 1% samples): 1.485s
+Accuracy (SVC RBF 1% samples): 61.6040955631%
+Training time (SVC RBF 1% samples; C=1): 0.115s
+Predict time (SVC RBF 1% samples): 1.329s
+Accuracy (SVC RBF 1% samples): 61.6040955631%
+Training time (SVC RBF 1% samples; C=10): 0.116s
+Predict time (SVC RBF 1% samples): 1.339s
+Accuracy (SVC RBF 1% samples): 61.6040955631%
+Training time (SVC RBF 1% samples; C=100): 0.12s
+Predict time (SVC RBF 1% samples): 1.357s
+Accuracy (SVC RBF 1% samples): 61.6040955631%
+Training time (SVC RBF 1% samples; C=1000): 0.111s
+Predict time (SVC RBF 1% samples): 1.298s
+Accuracy (SVC RBF 1% samples): 82.1387940842%
+Training time (SVC RBF 1% samples; C=10000): 0.109s
+Predict time (SVC RBF 1% samples): 1.072s
+Accuracy (SVC RBF 1% samples): 89.2491467577%
+Training time (SVC RBF All samples; C=10000): 123.454s
+Predict time (SVC RBF All samples): 136.335s
+Accuracy (SVC RBF All samples): 99.0898748578%
+Training time (SVC RBF 1% samples; C=10000): 0.107s
+Predict time (SVC RBF 1% samples): 1.044s
+Prediction for element 10: 1
+Prediction for element 26: 0
+Prediction for element 50: 1
+Chris cases: 877
