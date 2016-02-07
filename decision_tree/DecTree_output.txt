@@ -1,0 +1,5 @@
+Training time (DecTree): 78.991s
+Accuracy (DecTree): 0.977s
+Features (Original): 379.0
+Training time (DecTree 1%features): 6.044s
+Accuracy (DecTree 1%features): 0.967s
