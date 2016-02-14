@@ -1,3 +1,25 @@
 File initialization
 Training time (kNearestNeigh:3): 0.001s
 Accuracy (kNearestNeigh:3): 0.936
+Training time (kNearestNeigh:5): 0.001s
+Accuracy (kNearestNeigh:5): 0.92
+Training time (kNearestNeigh:10): 0.001s
+Accuracy (kNearestNeigh:10): 0.932
+Training time (kNearestNeigh:50): 0.001s
+Accuracy (kNearestNeigh:50): 0.928
+Training time (AdaBoost:10): 0.017s
+Accuracy (AdaBoost:10): 0.916
+Training time (AdaBoost:50): 0.082s
+Accuracy (AdaBoost:50): 0.924
+Training time (AdaBoost:100): 0.169s
+Accuracy (AdaBoost:100): 0.924
+Training time (AdaBoost:200): 0.345s
+Accuracy (AdaBoost:200): 0.916
+Training time (RandomForest:10): 0.017s
+Accuracy (RandomForest:10): 0.904
+Training time (RandomForest:50): 0.087s
+Accuracy (RandomForest:50): 0.92
+Training time (RandomForest:100): 0.164s
+Accuracy (RandomForest:100): 0.916
+Training time (RandomForest:200): 0.319s
+Accuracy (RandomForest:200): 0.916

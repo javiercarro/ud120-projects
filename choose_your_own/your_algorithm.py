@@ -83,10 +83,10 @@ def AdaBoost(k):
   text = "Accuracy (AdaBoost:{0}): {1}".format(k, round(acc, 3))
   writeToFile("ChooseYourOwn_output.txt", text, "a")
 
-  #try:
-    #prettyPicture(clf, features_test, labels_test)
-  #except NameError:
-    #pass
+  try:
+    prettyPicture(clf, features_test, labels_test)
+  except NameError:
+    pass
 
 #   2.2. Random Forest (averaging)
 def RandomForest(k):
@@ -104,26 +104,26 @@ def RandomForest(k):
   text = "Accuracy (RandomForest:{0}): {1}".format(k, round(acc, 3))
   writeToFile("ChooseYourOwn_output.txt", text, "a")
 
-  #try:
-    #prettyPicture(clf, features_test, labels_test)
-  #except NameError:
-    #pass
+  try:
+    prettyPicture(clf, features_test, labels_test)
+  except NameError:
+    pass
 
 text = "File initialization"
 writeToFile("ChooseYourOwn_output.txt", text, "w")
 
-#KNearestNeigh(3)
-#KNearestNeigh(5)
-#KNearestNeigh(10)
-#KNearestNeigh(50)
+KNearestNeigh(3)
+KNearestNeigh(5)
+KNearestNeigh(10)
+KNearestNeigh(50)
 
-#AdaBoost(10)
-#AdaBoost(50)
-#AdaBoost(100)
-#AdaBoost(200)
+AdaBoost(10)
+AdaBoost(50)
+AdaBoost(100)
+AdaBoost(200)
 
 RandomForest(10)
-#RandomForest(50)
-#RandomForest(100)
-#RandomForest(200)
+RandomForest(50)
+RandomForest(100)
+RandomForest(200)
 
