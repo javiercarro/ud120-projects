@@ -1,0 +1,3 @@
+File initialization
+Training time (kNearestNeigh:3): 0.001s
+Accuracy (kNearestNeigh:3): 0.936
