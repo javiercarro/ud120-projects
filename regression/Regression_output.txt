@@ -1,0 +1,6 @@
+Slope 5.448; Intercept -102360.543.
+Score using training sets: 0.046.
+Score using test sets: -1.485.
+Score using long_term_incentive: -0.593.
+(Using test data, which includes outlier, and long_term_incentive)
+  Slope 2.274; Intercept 124444.389.

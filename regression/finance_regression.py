@@ -12,6 +12,10 @@
     You fill in the regression code where indicated:
 """    
 
+def writeToFile(filename, text, mode):
+  with open(filename, mode) as text_file:
+    text_file.write(text+"\n")
+
 
 import sys
 import pickle
@@ -29,7 +33,7 @@ target, features = targetFeatureSplit( data )
 from sklearn.cross_validation import train_test_split
 feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
 train_color = "b"
-test_color = "b"
+test_color = "r"
 
 
 
@@ -38,11 +42,71 @@ test_color = "b"
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
 
+#########################################
+# Regression against salary
+#########################################
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+reg.fit(feature_train, target_train)
+text = "Slope {0}; Intercept {1}.".format(round(reg.coef_, 3), round(reg.intercept_, 3))
+print text
+writeToFile("Regression_output.txt", text, "w")
+
+score = reg.score(feature_train, target_train)
+text = "Score using training sets: {0}.".format(round(score, 3))
+print text
+writeToFile("Regression_output.txt", text, "a")
+
+score = reg.score(feature_test, target_test)
+text = "Score using test sets: {0}.".format(round(score, 3))
+print text
+writeToFile("Regression_output.txt", text, "a")
+#########################################
 
 
+#########################################
+# Regression against long_term_incentive
+#########################################
+### list the features you want to look at--first item in the 
+### list will be the "target" feature
+features_list = ["bonus", "long_term_incentive"]
+data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
+target, features = targetFeatureSplit( data )
 
+### training-testing split needed in regression, just like classification
+from sklearn.cross_validation import train_test_split
+feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
+train_color = "b"
+test_color = "r"
 
+reg.fit(feature_train, target_train)
+score = reg.score(feature_test, target_test)
+text = "Score using long_term_incentive: {0}.".format(round(score, 3))
+print text
+writeToFile("Regression_output.txt", text, "a")
+#########################################
 
+#########################################
+# Again Regression against salary
+#########################################
+### list the features you want to look at--first item in the 
+### list will be the "target" feature
+features_list = ["bonus", "salary"]
+data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
+target, features = targetFeatureSplit( data )
+
+### training-testing split needed in regression, just like classification
+from sklearn.cross_validation import train_test_split
+feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
+train_color = "b"
+test_color = "r"
+
+# Against test data (with outlier)
+reg.fit(feature_test, target_test)
+text = "(Using test data, which includes outlier, and long_term_incentive)\n  Slope {0}; Intercept {1}.".format(round(reg.coef_, 3), round(reg.intercept_, 3))
+print text
+writeToFile("Regression_output.txt", text, "a")
+#########################################
 
 
 ### draw the scatterplot, with color-coded training and testing points
