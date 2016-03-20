@@ -1,0 +1,4 @@
+Slope 5.078; Intercept 25.21.
+Score using net_worths_test: 0.878.
+(Removed 10% of outliers): Slope 6.369; Intercept -6.919.
+  Score using net_worths_test: 0.983.

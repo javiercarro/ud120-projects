@@ -7,6 +7,14 @@ import pickle
 
 from outlier_cleaner import outlierCleaner
 
+from sklearn.linear_model import LinearRegression
+
+#########################################
+def writeToFile(filename, text, mode):
+  with open(filename, mode) as text_file:
+    text_file.write(text+"\n")
+#########################################
+
 
 ### load up some practice data with outliers in it
 ages = pickle.load( open("practice_outliers_ages.pkl", "r") )
@@ -27,13 +35,21 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### the plotting code below works, and you can see what your regression looks like
 
 
+#########################################
+from sklearn import linear_model
+reg = LinearRegression()
+reg.fit(ages_train, net_worths_train)
+text = "Slope {0}; Intercept {1}.".format(round(reg.coef_, 3), round(reg.intercept_, 3))
+print text
+writeToFile("OutliersRemoval_output.txt", text, "w")
 
+# Scoring when predicting using TestData
+score = reg.score(ages_test, net_worths_test)
+text = "Score using net_worths_test: {0}.".format(round(score, 3))
+print text
+writeToFile("OutliersRemoval_output.txt", text, "a")
 
-
-
-
-
-
+#########################################
 
 
 try:
@@ -68,6 +84,15 @@ if len(cleaned_data) > 0:
     ### refit your cleaned data!
     try:
         reg.fit(ages, net_worths)
+        ###
+        text = "(Removed 10% of outliers): Slope {0}; Intercept {1}.".format(round(reg.coef_, 3), round(reg.intercept_, 3))
+        print text
+        writeToFile("OutliersRemoval_output.txt", text, "a")
+        score = reg.score(ages_test, net_worths_test)
+        text = "  Score using net_worths_test: {0}.".format(round(score, 3))
+        print text
+        writeToFile("OutliersRemoval_output.txt", text, "a")
+        ###
         plt.plot(ages, reg.predict(ages), color="blue")
     except NameError:
         print "you don't seem to have regression imported/created,"
