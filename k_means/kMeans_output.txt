@@ -1,0 +1,2 @@
+Max Salary: 1111258
+Min Salary: 477
