@@ -8,7 +8,7 @@
 
 
 import pickle
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 import sys
 sys.path.append("../tools/")
@@ -51,9 +51,9 @@ sal = []
 for k in data_dict.keys():
   if data_dict[k]["salary"] != 'NaN': sal.append(data_dict[k]["salary"])
 text = "Max Salary: {0}".format(max(sal))
-writeToFile("kMeans_output.txt", text, "w")
+writeToFile("kMeans_output_scaled.txt", text, "w")
 text = "Min Salary: {0}".format(min(sal))
-writeToFile("kMeans_output.txt", text, "a")
+writeToFile("kMeans_output_scaled.txt", text, "a")
 
 
 ### the input features we want to use 
@@ -88,3 +88,18 @@ try:
     Draw(pred, finance_features, poi, mark_poi=False, name="clusters_3features.pdf", f1_name=feature_1, f2_name=feature_2, f3_name=feature_3)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
+
+##############################Feature scaling##########################################
+from sklearn import preprocessing
+min_max_scaler = preprocessing.MinMaxScaler()
+
+scaled_salary = min_max_scaler.fit_transform(featureFormat(data_dict, ["salary"] ))
+one_salary = min_max_scaler.transform(np.array([[200000.]]))
+text = "Scaled Salary (200,000): {0}".format(one_salary)
+writeToFile("kMeans_output_scaled.txt", text, "a")
+
+scaled_exe_op = min_max_scaler.fit_transform(featureFormat(data_dict, ["exercised_stock_options"] ))
+one_exe_op = min_max_scaler.transform(np.array([[1000000.]]))
+text = "Scaled Exercised Stock Options (1,000,000): {0}".format(one_exe_op)
+writeToFile("kMeans_output_scaled.txt", text, "a")
+
