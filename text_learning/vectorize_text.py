@@ -8,6 +8,12 @@ import sys
 sys.path.append( "../tools/" )
 from parse_out_email_text import parseOutText
 
+def writeToFile(filename, text, mode):
+  print text
+  with open(filename, mode) as text_file:
+    text_file.write(text+"\n")
+
+
 """
     Starter code to process the emails from Sara and Chris to extract
     the features and get the documents ready for classification.
@@ -48,16 +54,30 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
+            stemmed_email = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
+            stemmed_email.replace('sara', '')
+            stemmed_email.replace('shackleton', '')
+            stemmed_email.replace('chris', '')
+            stemmed_email.replace('germani', '')
 
             ### append the text to word_data
+            word_data.append(stemmed_email)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            if name == 'sara':
+                from_data.append(0)
+            else:
+                from_data.append(1)
 
 
             email.close()
+
+text = "word_data[152]: {0}".format(word_data[152])
+writeToFile("TextLearning_output.txt", text, "w")
+
 
 print "emails processed"
 from_sara.close()
