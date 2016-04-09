@@ -42,26 +42,39 @@ word_data = []
 ### can iterate your modifications quicker
 temp_counter = 0
 
+#stop_words = frozenset([",'sara','shackleton','chris','germani',"])
+#total_stop_words = ENGLISH_STOP_WORDS.union(stop_words)
+#print total_stop_words
+
+stop_words_list = ['sara','shackleton','chris','germani']
+#for a in ENGLISH_STOP_WORDS:
+# stop_words.append(a)
+
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         temp_counter += 1
-        if temp_counter < 200:
+        if temp_counter > 0:
             path = os.path.join('..', path[:-1])
             print path
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
-            stemmed_email = parseOutText(email)
+            body = parseOutText(email)
+            for word in stop_words_list:
+                if word in body:
+                    body = body.replace(word, "")
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-            stemmed_email.replace('sara', '')
-            stemmed_email.replace('shackleton', '')
-            stemmed_email.replace('chris', '')
-            stemmed_email.replace('germani', '')
+            #stemmed_email.replace('sara', '')
+            #stemmed_email.replace('shackleton', '')
+            #stemmed_email.replace('chris', '')
+            #stemmed_email.replace('germani', '')
+            #for stop_word in stop_words:
+                #body = body.replace(stop_word, "")
 
             ### append the text to word_data
             word_data.append(stemmed_email)
@@ -75,8 +88,8 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
 
             email.close()
 
-text = "word_data[152]: {0}".format(word_data[152])
-writeToFile("TextLearning_output.txt", text, "w")
+#text = "word_data[152]: {0}".format(word_data[152])
+#writeToFile("TextLearning_output.txt", text, "w")
 
 
 print "emails processed"
@@ -91,5 +104,11 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
 ### in Part 4, do TfIdf vectorization here
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectored = TfidfVectorizer(stop_words="english",lowercase=True)
+vectored.fit_transform(word_data)
+featured_words = vectored.get_feature_names()
+if len(featured_words) >= 34597:
+    print featured_words[34597]
+#print featured_words[34597]
 
