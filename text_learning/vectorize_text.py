@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import os
 import pickle
 import re
@@ -8,30 +7,19 @@ import sys
 sys.path.append( "../tools/" )
 from parse_out_email_text import parseOutText
 
-def writeToFile(filename, text, mode):
-  print text
-  with open(filename, mode) as text_file:
-    text_file.write(text+"\n")
-
-
 """
     Starter code to process the emails from Sara and Chris to extract
     the features and get the documents ready for classification.
-
     The list of all the emails from Sara are in the from_sara list
     likewise for emails from Chris (from_chris)
-
     The actual documents are in the Enron email dataset, which
     you downloaded/unpacked in Part 0 of the first mini-project. If you have
     not obtained the Enron email corpus, run startup.py in the tools folder.
-
     The data is stored in lists and packed away in pickle files at the end.
 """
 
-
-from_sara  = open("from_sara.txt", "r")
+from_sara = open("from_sara.txt", "r")
 from_chris = open("from_chris.txt", "r")
-
 from_data = []
 word_data = []
 
@@ -42,57 +30,34 @@ word_data = []
 ### can iterate your modifications quicker
 temp_counter = 0
 
-#stop_words = frozenset([",'sara','shackleton','chris','germani',"])
-#total_stop_words = ENGLISH_STOP_WORDS.union(stop_words)
-#print total_stop_words
-
-stop_words_list = ['sara','shackleton','chris','germani']
-#for a in ENGLISH_STOP_WORDS:
-# stop_words.append(a)
-
-
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
-        temp_counter += 1
-        if temp_counter > 0:
-            path = os.path.join('..', path[:-1])
-            print path
-            email = open(path, "r")
+        #temp_counter += 1
+        #if temp_counter < 200:
+        path = os.path.join('..', path[:-1])
+        print path
+        email = open(path, "r")
 
-            ### use parseOutText to extract the text from the opened email
-            body = parseOutText(email)
-            for word in stop_words_list:
-                if word in body:
-                    body = body.replace(word, "")
+        ### use parseOutText to extract the text from the opened email
+        stemd_email = parseOutText(email)
 
-            ### use str.replace() to remove any instances of the words
-            ### ["sara", "shackleton", "chris", "germani"]
-            #stemmed_email.replace('sara', '')
-            #stemmed_email.replace('shackleton', '')
-            #stemmed_email.replace('chris', '')
-            #stemmed_email.replace('germani', '')
-            #for stop_word in stop_words:
-                #body = body.replace(stop_word, "")
+        ### use str.replace() to remove any instances of the words
+        ### ["sara", "shackleton", "chris", "germani"]
+        for sig in ["sara", "shackleton", "chris", "germani", "sshacklensf","cgermannsf"]:
+            stemd_email = stemd_email.replace(sig,"")
 
-            ### append the text to word_data
-            word_data.append(stemmed_email)
+        ### append the text to word_data
+        word_data.append(stemd_email)
 
-            ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-            if name == 'sara':
-                from_data.append(0)
-            else:
-                from_data.append(1)
-
-
-            email.close()
-
-#text = "word_data[152]: {0}".format(word_data[152])
-#writeToFile("TextLearning_output.txt", text, "w")
-
+        ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+        from_data.append(name=='chris')
+        email.close()
 
 print "emails processed"
+print word_data[152]
+
 from_sara.close()
 from_chris.close()
 
@@ -100,15 +65,16 @@ pickle.dump( word_data, open("your_word_data.pkl", "w") )
 pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
-
-
-
 ### in Part 4, do TfIdf vectorization here
+word_data=pickle.load(open("your_word_data.pkl","r"))
+from_data=pickle.load(open("your_email_authors.pkl","r"))
+
 from sklearn.feature_extraction.text import TfidfVectorizer
-vectored = TfidfVectorizer(stop_words="english",lowercase=True)
-vectored.fit_transform(word_data)
-featured_words = vectored.get_feature_names()
-if len(featured_words) >= 34597:
-    print featured_words[34597]
-#print featured_words[34597]
+from nltk.corpus import stopwords
+sw = stopwords.words("english")
+
+vctrzr = TfidfVectorizer(stop_words='english')
+vctrzr.fit_transform(word_data)
+
+print len(vctrzr.get_feature_names())
 

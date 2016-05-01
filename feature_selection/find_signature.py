@@ -4,6 +4,11 @@ import pickle
 import numpy
 numpy.random.seed(42)
 
+def writeToFile(filename, text, mode):
+  print text
+  with open(filename, mode) as text_file:
+    text_file.write(text+"\n")
+
 
 ### The words (features) and authors (labels), already largely processed.
 ### These files should have been created from the previous (Lesson 10)
@@ -38,6 +43,33 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+#from sklearn import tree
+#clf = tree.DecisionTreeClassifier(min_samples_split=40)
+#clf.fit(features_train, labels_train)
+#acc = clf.score(features_test, labels_test)
+#text = "Accuracy overfit (DecTree): {0}".format(acc)
+#writeToFile("FeatureSelection_output.txt", text, "w")
 
 
+#dt = tree.DecisionTreeClassifier(min_samples_split=40)
+#dt.fit(features_train, labels_train)
+#print(dt.score(features_train, labels_train))
+#print(dt.score(features_test, labels_test))
+#print('--------')
+#
+#for idx, coef in enumerate(dt.feature_importances_):
+    #if coef >= 0.2:
+        #print(coef)
+        #print(idx)
+        #print(vectorizer.get_feature_names()[idx])
 
+from sklearn import tree
+from sklearn.metrics import accuracy_score
+clf = tree.DecisionTreeClassifier()
+clf.fit(features_train,labels_train)
+pred = clf.predict(features_test)
+acc = accuracy_score(labels_test,pred)
+print("Accuracy:",acc)
+#for x in range(len(clf.feature_importances_)):
+	#if clf.feature_importances_[x] > .2:
+		#print x, clf.feature_importances_[x], vectorizer.get_feature_names()[x]
